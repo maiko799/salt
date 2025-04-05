@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Literacy Game</title>
+  <!-- Google Font for a cute and playful feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4a2ab;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #fff;
+    }
+
+    p {
+      font-size: 18px;
+      color: #fff;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    button {
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff3385;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 15px;
+      width: 80%;
+      max-width: 350px;
+      border: 1px solid #ff66b2;
+      border-radius: 5px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 400px;
+      margin: 0 auto;
+    }
+
+    .graphic {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: #ff66b2;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    footer img {
+      max-width: 50px;
+      height: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Financial Literacy Game</h1>
+  
+  <p>
+    This website helps you build your financial literacy from scratch in a fun and interactive way! With engaging word search games and rewards, you'll learn the essentials of managing money while having fun. Plus, after you finish the game, you have a special suprise!
+
+  <!-- Replace with actual images, local or external -->
+  <!-- External image URL -->
+  <img src="https://example.com/cute-graphic.png" alt="Cute Graphic" class="graphic">
+  <!-- Or use a local image (ensure the image is in the 'images' folder) -->
+  <!-- <img src="images/cute-graphic.png" alt="Cute Graphic" class="graphic"> -->
+
+  <div class="container">
+    <div class="section-title">Create Account</div>
+    <form id="register-form">
+      <input type="text" id="username" placeholder="Username" required><br>
+      <input type="password" id="password" placeholder="Password" required><br>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div class="container" style="margin-top: 20px;">
+    <div class="section-title">Login</div>
+    <form id="login-form">
+      <input type="text" id="login-username" placeholder="Username" required><br>
+      <input type="password" id="login-password" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>Made with 💖 for a brighter financial future!</p>
+    <!-- Replace with actual heart image URL or use a local image -->
+    <img src="https://via.placeholder.com/50x50.png?text=💖" alt="Heart Graphic">
+  </footer>
+
+  <script>
+    // Handle user registration
+    document.getElementById('register-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+        } else {
+          alert(`Error: ${data.message}`);
+        }
+      } catch (err) {
+        console.error('Error registering:', err);
+        alert('An unexpected error occurred while registering. Please try again.');
+      }
+    });
+
+    // Handle user login
+    document.getElementById('login-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+
+      try {
+        const response = await fetch('http://localhost:5000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert(data.message);
+        } else {
+          alert(`Error: ${data.message}`);
+        }
+      } catch (err) {
+        console.error('Error logging in:', err);
+        alert('An unexpected error occurred while logging in. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
